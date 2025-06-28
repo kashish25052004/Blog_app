@@ -23,7 +23,7 @@ const Dashboard = () => {
   // Simulating fetching data from an API
   const fetchDashboardData = async() => {
     try {
-      const {data} = await axios('/api/admin/dashboard')
+      const {data} = await axios('/api/user/dashboard')
       if(data.success){
         setDashboardData(data.dashBoardData);
       }else{

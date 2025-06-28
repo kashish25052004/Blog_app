@@ -14,7 +14,7 @@ const comment = () => {
 
   const fetchComments = async()=>{
     try {
-      const {data} = await axios.get('/api/admin/comments');
+      const {data} = await axios.get('/api/user/comments');
       if(data.success){
         setComments(data.comments)
       }else{

@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import User from "../models/user.model.js"
 
 const blogSchema = new mongoose.Schema({
     title:{
@@ -30,6 +31,21 @@ const blogSchema = new mongoose.Schema({
         type:Boolean,
         reuired:true
     },
+
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        required:true
+
+    },
+
+    userName:{
+        type:String,
+        required:true
+
+    }
+
+    
 
 },{timestamps:true});
 

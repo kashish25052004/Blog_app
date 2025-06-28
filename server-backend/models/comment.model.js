@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import mondoose from "mongoose";
+import User from "../models/user.model.js"
+
 const commenstSchema = new mongoose.Schema({
     blog:{
         type:mongoose.Schema.Types.ObjectId,
@@ -19,7 +20,14 @@ const commenstSchema = new mongoose.Schema({
     
     isApproved:{
         type:Boolean,
-        default: false,
+        default: true,
+    },
+
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        required:true
+    
     }
 },{timestamps:true});
 

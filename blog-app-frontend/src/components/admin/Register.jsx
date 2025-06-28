@@ -5,23 +5,22 @@ import toast from "react-hot-toast";
 
 
 
-const Login = () => {
+const Register = () => {
 
-  const {axios,setToken} = useAppContext();
+  const {axios} = useAppContext();
 
 
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
+  const [name,setName] =useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     try {
-      const {data} = await axios.post('/api/user/login',{email,password})
+      const {data} = await axios.post('/api/user/register',{email,password,name})
 
       if(data.success){
-        setToken(data.token)
-        localStorage.setItem('token',data.token)
-        axios.defaults.headers.common['Authorization'] = data.token
+        toast.success(data.message);
       }else{
         toast.error(data.message)
       }
@@ -31,6 +30,13 @@ const Login = () => {
       
     }    
   }
+  const {navigate} = useAppContext();
+
+  function handleLogin() {
+    navigate('/login');
+  }
+
+  
 
   return (
     <div className='flex items-center justify-center h-screen'>
@@ -38,7 +44,7 @@ const Login = () => {
         <div className='flex flex-col items-center justify-center'>
 
           <div className='w-full py-6 text-center'>
-            <h1 className='text-3xl font-bold'>Login</h1>
+            <h1 className='text-3xl font-bold'>Register</h1>
             <p className='font-light'>Enter Details</p>
           </div>
 
@@ -50,12 +56,22 @@ const Login = () => {
             </div>
 
             <div className='flex flex-col'>
+              <label>Name</label>
+              <input onChange={e => setName(e.target.value)} value={name}
+              type="name" placeholder='your Password' required className='border-b-2 border-gray-300 p-2 outline-none mb-6'/>
+            </div>
+
+            <div className='flex flex-col'>
               <label>Password</label>
               <input onChange={e => setPassword(e.target.value)} value={password}
               type="password" placeholder='your Password' required className='border-b-2 border-gray-300 p-2 outline-none mb-6'/>
             </div>
 
-            <button type='submit' className='w-full py-3 font-medium bg-primary text-white rounded cursor-pointer hover:bg-primary/90 transition-all'> Login </button>
+            <button type='submit' className='w-full py-3 font-medium bg-primary text-white rounded cursor-pointer hover:bg-primary/90 transition-all'> Register </button>
+
+            <div className='cursor-pointer mt-5 '>Already have an account 
+              <button onClick={handleLogin} className='w-3xs py-3 ml-10 mt-4 font-medium bg-primary text-white rounded cursor-pointer hover:bg-primary/90 transition-all'>Login</button>
+            </div>
 
           </form>
 
@@ -65,4 +81,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register

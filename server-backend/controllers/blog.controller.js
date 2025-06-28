@@ -11,14 +11,9 @@ export const addBlog = async (req,res)=>{
         const {title,subTitle,description,category,isPublished} = JSON.parse(req.body.Blog)
         //string main aayega --> convert to json
 
-        console.log(title,subTitle,description,category,isPublished)
-        
-        
-
-
 
         const imageFile = req.file;
-        console.log(imageFile)
+        
         
 
         //check if all fields are present
@@ -28,9 +23,6 @@ export const addBlog = async (req,res)=>{
             return res.json({success:false,message:"MIssing required fields"})
 
         }
-
-
-
 
         const fileBuffer = fs.readFileSync(imageFile.path)
          
@@ -55,12 +47,21 @@ export const addBlog = async (req,res)=>{
 
         const image = optimizedImageUrl;
 
-        await Blog.create({title,subTitle,description,category,image,isPublished})
+        const userId = req.user.id;
+        
+
+        
+
+        const userName = req.user.name;
+        
+
+        await Blog.create({title,subTitle,description,category,image,isPublished,userId,userName})
 
         res.json({success:true, message:"Blog added successfully"})
 
 
     }catch(error){
+
         res.json({success:false,message:error.message})
 
     }
@@ -127,10 +128,13 @@ export const togglePublish = async(req,res) => {
 export const addComment = async (req,res) => {
     try {
         const {blog, name,content} = req.body;
+        const userId = req.user.id;
+        
         await Comment.create({
             blog,
             name,
-            content
+            content,
+            userId
         });
 
         res.json({success:true,message:'comment added for review'})

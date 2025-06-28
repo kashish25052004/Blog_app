@@ -5,6 +5,7 @@ const app = express();
 import connectDB from './configs/db.js';
 import adminRouter from './routes/admin.routes.js';
 import blogRouter from './routes/blog.routes.js';
+import userRouter from './routes/user.routes.js';
 
 await connectDB()
 
@@ -15,6 +16,9 @@ app.use(express.json())
 //Routes
 app.get('/',(req,res)=>res.send("Api is working"))
 app.use('/api/admin', adminRouter)
+
+// ...existing code...
+app.use('/api/user', userRouter);
 app.use('/api/blog',blogRouter);
 
 const PORT = process.env.PORT || 3000;

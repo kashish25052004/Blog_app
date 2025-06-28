@@ -10,6 +10,7 @@ import AddBlog from './pages/admin/AddBlog'
 import ListBlog from './pages/admin/ListBlog'
 import Comments from './pages/admin/Comment'
 import Login from './components/admin/Login'
+import Register from './components/admin/Register'
 import 'quill/dist/quill.snow.css' 
 import {Toaster} from 'react-hot-toast' // error notification ke liye use hota hai backend ko frontend main jodhte time
 import { useAppContext } from './context/AppContext'
@@ -26,12 +27,14 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/blog/:id" element={<Blog />} />
-        <Route path="/admin" element={token ? <Layout /> : <Login />}>
+        <Route path="/login" element={token ? <Home /> : <Login />} />
+        <Route path="/dashboard" element={<Layout />}>
           <Route index element={<DashBoard />}/>
           <Route path='addBlog' element={<AddBlog />} />
           <Route path='listBlog' element={<ListBlog />} />
           <Route path='comments' element={<Comments />} />
         </Route>
+        <Route path='/register' element={<Register/> }/>
       </Routes>
       
     </div>
