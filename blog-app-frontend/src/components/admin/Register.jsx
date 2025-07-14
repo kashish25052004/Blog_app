@@ -58,7 +58,7 @@ const Register = () => {
             <div className='flex flex-col'>
               <label>Name</label>
               <input onChange={e => setName(e.target.value)} value={name}
-              type="name" placeholder='your Password' required className='border-b-2 border-gray-300 p-2 outline-none mb-6'/>
+              type="name" placeholder='your Name' required className='border-b-2 border-gray-300 p-2 outline-none mb-6'/>
             </div>
 
             <div className='flex flex-col'>
